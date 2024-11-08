@@ -1,7 +1,7 @@
 import initSqlJs, { Database } from 'sql.js';
 
 export class CSVProcessor {
-    private csvWorker = new Worker(new URL('./worker.ts', import.meta.url));
+    private readonly csvWorker = new Worker(new URL('./worker.ts', import.meta.url));
     private db: Database | undefined;
 
     constructor() {
@@ -71,10 +71,3 @@ export class CSVProcessor {
         return result;
     }
 }
-
-
-
-
-// CSVデータをWorkerに送信
-// const csvData = "id,name,email\n1,John Doe,john@example.com\n2,Jane Doe,jane@example.com";
-
