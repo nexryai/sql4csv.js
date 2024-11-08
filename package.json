@@ -23,9 +23,6 @@
   "dependencies": {
     "sql.js": "^1.12.0"
   },
-  "files": [
-    "/dist"
-  ],
   "browser": "./dist/sql4csv.umd.js",
   "module": "./dist/sql4csv.es.js",
   "exports": {
@@ -33,5 +30,10 @@
       "import": "./dist/sql4csv.es.js",
       "require": "./dist/sql4csv.umd.js"
     }
-  }
+  },
+  "types": "./types/main.d.ts",
+  "files": [
+    "/dist",
+    "/types"
+  ]
 }
