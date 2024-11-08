@@ -47,7 +47,7 @@ export class CSVProcessor {
     public importCSV(csvData: string) {
         // Drop table if exists
         if (!this.db) throw new Error("Database is not initialized");
-        this.db.run('DROP TABLE IF EXISTS ${this.tableName}');
+        this.db.run(`DROP TABLE IF EXISTS ${this.tableName}`);
 
         this.csvWorker.postMessage(csvData);
     }

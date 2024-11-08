@@ -3,6 +3,7 @@ import { CSVProcessor } from '../src/main';
 
 describe('CSVProcessor', () => {
     const csvProcessor = new CSVProcessor();
+    const internalTableName = 'sql4csv_data';
 
     // wait 100ms for the worker to be created
     beforeEach(async () => {
@@ -23,7 +24,7 @@ describe('CSVProcessor', () => {
         csvProcessor.csvWorker.onmessage?.({ data: { header: null, values: ['2', 'Jane Doe', 'jane@example.com'], done: true } });
 
         // データが正しく挿入されたかを確認
-        const result = csvProcessor.execQueryAndGetResult("SELECT * FROM csv_table");
+        const result = csvProcessor.execQueryAndGetResult(`SELECT * FROM ${internalTableName}`);
         expect(result).toEqual([
             { id: '1', name: 'John Doe', email: 'john@example.com' },
             { id: '2', name: 'Jane Doe', email: 'jane@example.com' },
