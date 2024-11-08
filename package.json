@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "prepare": "pnpm build"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
@@ -22,5 +22,16 @@
   "packageManager": "pnpm@8.15.6+sha512.77b89e9be77a2b06ad8f403a19cae5e22976f61023f98ad323d5c30194958ebc02ee0a6ae5d13ee454f6134e4e8caf29a05f0b1a0e1d2b17bca6b6a1f1159f86",
   "dependencies": {
     "sql.js": "^1.12.0"
+  },
+  "files": [
+    "/dist"
+  ],
+  "browser": "./dist/sql4csv.umd.js",
+  "module": "./dist/sql4csv.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/sql4csv.es.js",
+      "require": "./dist/sql4csv.umd.js"
+    }
   }
 }
