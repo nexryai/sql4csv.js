@@ -4,9 +4,9 @@ import { defineConfig } from 'vite'
 export default defineConfig({
     build: {
         lib: {
+            // eslint-disable-next-line no-undef
             entry: resolve(__dirname, 'src/main.ts'),
-            name: 'main',
-            fileName: 'main',
+            name: 'sql4csv',
         },
     },
 })
