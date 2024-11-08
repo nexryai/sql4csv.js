@@ -22,7 +22,7 @@ export class CSVProcessor {
                     const columns = header.map(col => `${col} TEXT`).join(', ');
                     const createTableQuery = `CREATE TABLE IF NOT EXISTS csv_table (${columns})`;
                     this.db.run(createTableQuery);
-                    console.log("テーブルが作成されました:", createTableQuery);
+                    //console.log("テーブルが作成されました:", createTableQuery);
                     return;
                 }
 
@@ -37,7 +37,7 @@ export class CSVProcessor {
 
                 // 処理が完了したときの通知
                 if (done) {
-                    console.log("CSVの全行が処理されました");
+                    //console.log("Done!");
                 }
             };
         });
