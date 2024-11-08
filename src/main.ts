@@ -43,8 +43,32 @@ export class CSVProcessor {
         });
     }
 
-    public processString(csvData: string) {
+    public importCSV(csvData: string) {
         this.csvWorker.postMessage(csvData);
+    }
+
+    public execQuery(query: string) {
+        if (!this.db) throw new Error("Database is not initialized");
+
+        const stmt = this.db.prepare(query);
+        while (stmt.step()) {
+            const row = stmt.getAsObject();
+            console.log(row);
+        }
+        stmt.free();
+    }
+
+    public execQueryAndGetResult(query: string): unknown[] {
+        if (!this.db) throw new Error("Database is not initialized");
+
+        const stmt = this.db.prepare(query);
+        const result = [];
+        while (stmt.step()) {
+            const row = stmt.getAsObject();
+            result.push(row);
+        }
+        stmt.free();
+        return result;
     }
 }
 
