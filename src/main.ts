@@ -1,6 +1,7 @@
 import initSqlJs, { Database } from 'sql.js';
 
 export class CSVProcessor {
+    private readonly tableName = 'sql4csv_data';
     private readonly csvWorker = new Worker(new URL('./worker.ts', import.meta.url));
     private db: Database | undefined;
 
@@ -20,7 +21,7 @@ export class CSVProcessor {
                 // ヘッダー情報を受け取って、テーブルを動的に作成
                 if (header) {
                     const columns = header.map(col => `${col} TEXT`).join(', ');
-                    const createTableQuery = `CREATE TABLE IF NOT EXISTS csv_table (${columns})`;
+                    const createTableQuery = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns})`;
                     this.db.run(createTableQuery);
                     //console.log("テーブルが作成されました:", createTableQuery);
                     return;
@@ -29,7 +30,7 @@ export class CSVProcessor {
                 // データ行をインサート
                 if (values) {
                     const placeholders = values.map(() => '?').join(', ');
-                    const insertQuery = `INSERT INTO csv_table VALUES (${placeholders})`;
+                    const insertQuery = `INSERT INTO ${this.tableName} VALUES (${placeholders})`;
                     const stmt = this.db.prepare(insertQuery);
                     stmt.run(values);
                     stmt.free();
@@ -46,7 +47,7 @@ export class CSVProcessor {
     public importCSV(csvData: string) {
         // Drop table if exists
         if (!this.db) throw new Error("Database is not initialized");
-        this.db.run('DROP TABLE IF EXISTS csv_table');
+        this.db.run('DROP TABLE IF EXISTS ${this.tableName}');
 
         this.csvWorker.postMessage(csvData);
     }
