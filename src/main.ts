@@ -5,8 +5,12 @@ export class CSVProcessor {
     private readonly csvWorker = new Worker(new URL('./worker.ts', import.meta.url));
     private db: Database | undefined;
 
-    constructor() {
-        initSqlJs().then((SQL) => {
+    constructor(
+        private readonly sqliteWasmUrl?: string,
+    ) {
+        const sqlJsConfig = this.sqliteWasmUrl ? { locateFile: () => this.sqliteWasmUrl! } : {};
+
+        initSqlJs(sqlJsConfig).then((SQL) => {
             this.db = new SQL.Database();
 
             this.csvWorker.onmessage = (event) => {
