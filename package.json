@@ -1,5 +1,7 @@
 {
   "name": "sql4csv",
+  "description": "A simple library to query CSV files using SQL with in-memory SQLite",
+  "repository": "https://github.com/nexryai/sql4csv.js",
   "private": false,
   "version": "0.0.1",
   "type": "module",
